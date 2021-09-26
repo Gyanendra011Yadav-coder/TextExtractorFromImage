@@ -6,18 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+<!--This, we are using that will help to capture image-->
     <ImageView
         android:id="@+id/imageId"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         />
+    <!--This,will help tp set up a button. With Help of that User can Press to Extract Text.-->
     <Button
         android:id="@+id/buttonToGenerateText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="doProcess"/>
-
+    <!--This,View will help to Shoe The Extracted Text From The Image.-->
     <TextView
         android:id="@+id/textAfterExtract"
         android:layout_width="wrap_content"
