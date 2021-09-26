@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         />
     <Button
-        android:id="@+id/buttonToProceed"
+        android:id="@+id/buttonToGenerateText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="doProcess"/>
