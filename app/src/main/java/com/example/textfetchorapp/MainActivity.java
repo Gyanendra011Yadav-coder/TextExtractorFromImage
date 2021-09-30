@@ -1,5 +1,6 @@
 package com.example.textfetchorapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
@@ -39,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
     public void doProcess(View view) {
         //Code to Open The Camera=> By Creating An Intent Object
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //This function Will Be Taking the Result from the intent and will be passing to process further.
+        startActivityForResult(intent,404);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable  Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
     }
 }
