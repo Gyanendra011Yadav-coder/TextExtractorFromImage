@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable  Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Bundle bundle = data.getExtras();
+        //Now we will be Extracting the Image Using Bundles.
+        bundle.get("data");
     }
 }
