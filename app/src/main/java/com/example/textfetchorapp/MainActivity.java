@@ -2,8 +2,11 @@ package com.example.textfetchorapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,5 +37,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void doProcess(View view) {
+        //Code to Open The Camera=> By Creating An Intent Object
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
     }
 }
