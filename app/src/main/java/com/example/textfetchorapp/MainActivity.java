@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 //2. Second Step is Get an Refrence Of FireBaseVision
         FirebaseVision firebaseVision=FirebaseVision.getInstance();
         //3. Create An Instance Of FireBaseVisionTextRecognizer
-        FireBaseVisionTextRecognizer fireBaseVisionTextRecognizer=firebaseVision.getOnDeviceTextRecognizer();
+        FirebaseVisionTextRecognizer fireBaseVisionTextRecognizer=firebaseVision.getOnDeviceTextRecognizer();
 
 
     }
