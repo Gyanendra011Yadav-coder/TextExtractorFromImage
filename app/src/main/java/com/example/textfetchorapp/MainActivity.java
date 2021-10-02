@@ -48,7 +48,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable  Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bundle bundle = data.getExtras();
-        //Now we will be Extracting the Image Using Bundles.
-        bundle.get("data");
+        //Now we will be Extracting the Image Using Bundles and will e be storing it to the Bitmap.
+        Bitmap bitmap=(Bitmap) bundle.get("data");
+        //seting the image in the imageView
+        imageView.setImageBitmap(bitmap);
+        //process the image to extract the Text
+
+
     }
 }
