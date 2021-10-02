@@ -13,8 +13,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.text.FirebaseVisionText;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -61,7 +63,15 @@ public class MainActivity extends AppCompatActivity {
         FirebaseVision firebaseVision=FirebaseVision.getInstance();
         //3. Create An Instance Of FireBaseVisionTextRecognizer
         FirebaseVisionTextRecognizer fireBaseVisionTextRecognizer=firebaseVision.getOnDeviceTextRecognizer();
+//4. Creating A Task To Procees The Image, will be Using FirebaseVisionTExtRecognizer
+        Task<FirebaseVision>=fireBaseVisionTextRecognizer.processImage(firebaseVisionImage);
+        //5. If The Task is Successfull, then
+        task.addOnSuccessListner(new OnSuccessListner<FirebaseVisionText>(){
+            public void onSuccess(FirebaseVisionText firebaseVisionText){
 
+            }
+        });
+        //6. If Task Fails
 
     }
 }
