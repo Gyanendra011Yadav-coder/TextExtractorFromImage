@@ -13,7 +13,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -54,7 +55,10 @@ public class MainActivity extends AppCompatActivity {
         //seting the image in the imageView
         imageView.setImageBitmap(bitmap);
         //process the image to extract the Text
-
+        //1.Now,will be Creating The FirebaseVisionImage object from a bitmap object.
+        FirebaseVisionImage firebaseVisionImage= FirebaseVisionImage.fromBitmap(bitmap);
+//2. Second Step is Get an Refrence Of FireBaseVision
+        FirebaseVision firebaseVision=FirebaseVision.getInstance();
 
     }
 }
