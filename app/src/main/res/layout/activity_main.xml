@@ -13,14 +13,19 @@
         android:layout_width="wrap_content"
         />
     <!--This,will help tp set up a button. With Help of that User can Press to Extract Text.-->
+    <!--This,View will help to Shoe The Extracted Text From The Image.-->
+
     <Button
         android:id="@+id/buttonToGenerateText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="doProcess"/>
-    <!--This,View will help to Shoe The Extracted Text From The Image.-->
+        android:onClick="doProcess"
+        android:text="Take Picture"
+        android:textAllCaps="false"
+        app:rippleColor="@color/teal_200" />
+
     <TextView
-        android:id="@+id/textAfterExtract"
+        android:id="@+id/textId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
          />

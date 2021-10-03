@@ -1,5 +1,6 @@
 package com.example.textfetchorapp;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,11 +13,15 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
+import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,50 +33,54 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Finding Image By Id
-        imageView=findViewById(R.id.imageId);
-        //Finding The TextById
-        textView=findViewById(R.id.textAfterExtract);
-
-        //Checking, if the Permission of Camera is Granted or not
-        if(checkSelfPermission(Manifest.permission.CAMERA)!=
-                PackageManager.PERMISSION_GRANTED) {
-            //Showig the Error to the user and Making Providing the Acces to The Camera.
-                requestPermissions(new String[]{Manifest.permission.CAMERA},404);
+        //find imageview
+        imageView = findViewById(R.id.imageId);
+        //find textview
+        textView = findViewById(R.id.textId);
+        //check app level permission is granted for Camera
+        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            //grant the permission
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, 101);
         }
     }
 
     public void doProcess(View view) {
-        //Code to Open The Camera=> By Creating An Intent Object
+        //open the camera => create an Intent object
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //This function Will Be Taking the Result from the intent and will be passing to process further.
-        startActivityForResult(intent,404);
+        startActivityForResult(intent, 101);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable  Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bundle bundle = data.getExtras();
-        //Now we will be Extracting the Image Using Bundles and will e be storing it to the Bitmap.
-        Bitmap bitmap=(Bitmap) bundle.get("data");
-        //seting the image in the imageView
+        //from bundle, extract the image
+        Bitmap bitmap = (Bitmap) bundle.get("data");
+        //set image in imageview
         imageView.setImageBitmap(bitmap);
-        //process the image to extract the Text
-        //1.Now,will be Creating The FirebaseVisionImage object from a bitmap object.
-        FirebaseVisionImage firebaseVisionImage= FirebaseVisionImage.fromBitmap(bitmap);
-//2. Second Step is Get an Refrence Of FireBaseVision
-        FirebaseVision firebaseVision=FirebaseVision.getInstance();
-        //3. Create An Instance Of FireBaseVisionTextRecognizer
-        FirebaseVisionTextRecognizer fireBaseVisionTextRecognizer=firebaseVision.getOnDeviceTextRecognizer();
-//4. Creating A Task To Procees The Image, will be Using FirebaseVisionTExtRecognizer
-        Task<FirebaseVision>=fireBaseVisionTextRecognizer.processImage(firebaseVisionImage);
-        //5. If The Task is Successfull, then
-        task.addOnSuccessListner(new OnSuccessListner<FirebaseVisionText>(){
-            public void onSuccess(FirebaseVisionText firebaseVisionText){
-
+        //process the image
+        //1. create a FirebaseVisionImage object from a Bitmap object
+        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(bitmap);
+        //2. Get an instance of FirebaseVision
+        FirebaseVision firebaseVision = FirebaseVision.getInstance();
+        //3. Create an instance of FirebaseVisionTextRecognizer
+        FirebaseVisionTextRecognizer firebaseVisionTextRecognizer = firebaseVision.getOnDeviceTextRecognizer();
+        //4. Create a task to process the image
+        Task<FirebaseVisionText> task = firebaseVisionTextRecognizer.processImage(firebaseVisionImage);
+        //5. if task is success
+        task.addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+            @Override
+            public void onSuccess(FirebaseVisionText firebaseVisionText) {
+                String s = firebaseVisionText.getText();
+                textView.setText(s);
             }
         });
-        //6. If Task Fails
-
+        //6. if task is failure
+        task.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
